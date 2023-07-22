@@ -1,0 +1,37 @@
+{% extends 'withlogin.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<div class='alert alert-warning'>
+     <button type='button' class='close' data-dismiss='alert'>&times;</button>
+     {{ message }}
+</div>
+{% endfor %}
+
+{% if books %}
+<div class='text-center container-fluid'>
+     <h1 class='display-4 text-center'>Your issued books</h1><br>
+     <table class="table table-dark table-bordered">
+          <thead>
+               <th scope="col">#</th>
+               <th scope="col">Name</th>
+               <th scope="col">Author</th>
+               <th scope="col">Date issued</th>
+               <th class="col">Date of Return</th>
+          </thead>
+          <tbody>
+               {% for copy in books %}
+               <tr>
+                    <td scope='row'>{{ copy.id }}</td>
+                    <td>{{ copy.book.name }}</td>
+                    <td>{{ copy.book.author }}</td>
+                    <td>{{ copy.date_issued }}</td>
+                    <td>{{ copy.date_return }}</td>
+               </tr>
+               {% endfor %}
+          </tbody>
+     </table>
+</div>
+{% endif %}
+{% endblock %}
